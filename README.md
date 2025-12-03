@@ -17,6 +17,10 @@ See https://render.com/docs/deploy-fastapi or follow the steps below:
     ```shell
     uvicorn main:app --host 0.0.0.0 --port $PORT
     ```
+    or
+    ```shell
+    uvicorn main:app --reload
+    ```
 
 6. Click Create Web Service.
 
@@ -27,3 +31,16 @@ Or simply click:
 ## Thanks
 
 Thanks to [Harish](https://harishgarg.com) for the [inspiration to create a FastAPI quickstart for Render](https://twitter.com/harishkgarg/status/1435084018677010434) and for some sample code!
+
+## EmoGo Backend – Data Export
+
+The data-exporting / downloading page of my backend is:
+
+- Export page (HTML): 
+  https://emogo-backend-csj011018.onrender.com/export
+
+From this page, TAs & Tren can download all three types of data collected by the EmoGo frontend:
+
+- Sentiments (JSON): https://emogo-backend-csj011018.onrender.com/export/sentiments
+- GPS coordinates (JSON): https://emogo-backend-csj011018.onrender.com/export/gps
+- Vlogs (JSON, URI list): https://emogo-backend-csj011018.onrender.com/export/vlogs

@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 from motor.motor_asyncio import AsyncIOMotorClient
+from fastapi.encoders import jsonable_encoder
 import os
 
 # ==== Mongo 連線設定 ====
@@ -79,19 +80,20 @@ async def export_page():
 @app.get("/export/sentiments")
 async def export_sentiments():
     cursor = app.logs.find({}, {"_id": 0, "timestamp": 1, "mood": 1})
-    data = await cursor.to_list(length=None)
-    return JSONResponse(content=data)
+    docs = await cursor.to_list(length=100000)  # 給一個足夠大的整數就好
+    return JSONResponse(content=jsonable_encoder(docs))
 
 
 @app.get("/export/gps")
 async def export_gps():
     cursor = app.logs.find({}, {"_id": 0, "timestamp": 1, "lat": 1, "lng": 1})
-    data = await cursor.to_list(length=None)
-    return JSONResponse(content=data)
+    docs = await cursor.to_list(length=100000)
+    return JSONResponse(content=jsonable_encoder(docs))
 
 
 @app.get("/export/vlogs")
 async def export_vlogs():
     cursor = app.logs.find({}, {"_id": 0, "timestamp": 1, "videoUri": 1})
-    data = await cursor.to_list(length=None)
-    return JSONResponse(content=data)
+    docs = await cursor.to_list(length=100000)
+    return JSONResponse(content=jsonable_encoder(docs))
+
